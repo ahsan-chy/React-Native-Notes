@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "first-app",
-    "slug": "first-app",
+    "name": "fitx-fitness-gym-app",
+    "slug": "fitx-fitness-gym-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "firstapp",
+    "scheme": "fitxfitness",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
