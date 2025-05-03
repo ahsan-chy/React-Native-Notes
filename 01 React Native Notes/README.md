@@ -40,7 +40,7 @@
 
 ---
 
-#### 4. **Project Structure Overview**
+#### 4. **Project File and Folder Structure**
 
 - Default folder structure
 - Recommended folders:
@@ -140,3 +140,94 @@
 ---
 
 Would you like this exported as a downloadable PDF or markdown file for easy reference?
+
+## **Why React Native?**
+
+- New **JSI** (Javascript Interface)
+- TurboModules
+- Fabric
+- HotReloading
+
+![why-react-native](./assets/why-react-native.png)
+
+
+### 🔗 **JSI (JavaScript Interface)**
+
+JSI is the bridge-less communication layer between JavaScript and native code. It's super fast and unlocks next-gen features like TurboModules and Fabric.
+
+---
+
+### ⚡ **TurboModules**
+
+These are the upgraded version of native modules. They load on demand, which makes your app start faster and use memory more efficiently.
+
+---
+
+### 🧵 **Fabric**
+
+Fabric is the new rendering engine. It's faster, more flexible, and supports better UI threading — so your app feels smoother and more responsive.
+
+---
+
+### 🔁 **HotReloading**
+
+This is your dev-time BFF. It reloads only the changed files while preserving the app's state — which means faster debugging and less frustration.
+
+---
+
+
+## **React Native Fundamentals / Core Components**
+
+[Core Components and APIs ⚠️](https://reactnative.dev/docs/components-and-apis)
+
+- Button
+- View
+- Text
+- TouchableOpacity
+- TouchableHighlight
+- TouchableWithoutFeedback
+- ActivityIndicator (spinner)
+- FlatList (Map long list)
+- ScrollView
+- SafeAreaView - reactnative-safe-area-context
+- Image
+- ImageBackground
+- react-native-svg
+- Modal
+- Alert
+- Switch
+- StatusBar
+- TextInput
+- 
+- 
+- 
+
+
+Styling 
+- Stylesheet
+- NativeWind
+
+Navigation
+- Stack Navigation
+- Tab Navigation
+
+
+
+### `View`
+
+- View is like div tag in react app
+- View is flexbox layout by default
+- 
+
+
+
+### `FlatList`
+
+Question is
+##### When should you use FlatList?
+
+- For larger list and smooth scrolling
+
+##### When should you use map?
+
+- For small lists

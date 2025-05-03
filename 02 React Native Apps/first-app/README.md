@@ -16,6 +16,20 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
+## Error & Run Project
+
+- Run Project with the following command
+
+```bash
+npx expo start
+```
+
+If you get this error⚠️ then run code like this `something went wrong sorry about that. you can go back to expo home or try to reload the project`
+
+```bash
+npx expo start --tunnel
+```
+
 In the output, you'll find options to open the app in a
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
@@ -35,16 +49,26 @@ npm run reset-project
 
 This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
-## Learn more
 
-To learn more about developing your project with Expo, look at the following resources:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Packages List
 
-## Join the community
+```javascript
+npx expo install nativewind tailwindcss@^3.4.17 react-native-reanimated@3.16.2 react-native-safe-area-context
+```
 
-Join our community of developers creating universal apps.
+```javascript
+npm i nativewind
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```javascript
+npm i tailwindcss@^3.4.17
+```
+
+```javascript
+npm i react-native-safe-area-context
+```
+
+```javascript
+npm i react-native-reanimated
+```
