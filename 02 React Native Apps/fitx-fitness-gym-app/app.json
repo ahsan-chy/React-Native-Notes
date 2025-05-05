@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "fitx-fitness-gym-app",
-    "slug": "fitx-fitness-gym-app",
+    "name": "FITX Fitness",
+    "slug": "fitx-fitness",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logos/fitx-icon-white.jpg",
     "scheme": "fitxfitness",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,8 +13,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/logos/fitx-icon-white.jpg",
+        "backgroundColor": "#ffffff00"
       },
       "edgeToEdgeEnabled": true,
       "package": "com.ahsaniqbal480.fitxfitnessgymapp"
@@ -22,17 +22,17 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/logos/fitx-icon-white.jpg"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/logos/fitx-icon-white.jpg",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "transparent"
         }
       ]
     ],

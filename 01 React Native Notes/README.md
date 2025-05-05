@@ -391,8 +391,9 @@ import "./global.css";
 -
 
 - Stack
-- Link
 - tabs
+- Drawer
+- Link
 - `+not-found.tsx`
 
 - [Types of route notation](https://docs.expo.dev/router/basics/notation/)

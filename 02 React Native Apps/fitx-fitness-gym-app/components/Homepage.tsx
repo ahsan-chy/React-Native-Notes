@@ -13,7 +13,7 @@ const Homepage = () => {
   const router = useRouter();
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 mt-14">
       <ImageBackground
         source={require("../assets/images/homepage.jpg")}
         resizeMode="cover"

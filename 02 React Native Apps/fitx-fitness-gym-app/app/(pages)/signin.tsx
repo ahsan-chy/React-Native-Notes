@@ -48,16 +48,18 @@ const Signin = () => {
               className="border-b border-gray-300 text-black mb-6 pb-2"
             />
 
-            <TouchableOpacity className="bg-primary py-3 rounded-full shadow-md">
+            <TouchableOpacity
+              className="bg-primary py-3 rounded-full shadow-md"
+              onPress={() => router.push("/members")}>
               <Text className="text-white text-center font-semibold text-base">SIGN IN</Text>
             </TouchableOpacity>
 
-            <View className="flex-row justify-center items-center mt-6">
+            {/* <View className="flex-row justify-center items-center mt-6">
               <Text className="text-sm text-secondary">Don&apos;t have an account? </Text>
               <Pressable onPress={() => router.push("/signup")}>
                 <Text className="text-primary font-semibold">Sign Up</Text>
               </Pressable>
-            </View>
+            </View> */}
           </ScrollView>
         </View>
       </View>
