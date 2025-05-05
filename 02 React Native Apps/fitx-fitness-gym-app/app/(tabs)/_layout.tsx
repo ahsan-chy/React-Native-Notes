@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
 import { Text, View } from "react-native";
-import { EvilIcons, Feather, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
+import { EvilIcons, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 
 function TabIcon({
   focused,

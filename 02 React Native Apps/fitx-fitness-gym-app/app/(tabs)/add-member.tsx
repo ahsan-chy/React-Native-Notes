@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from "react-native";
+import { Text, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from "react-native";
 
 export default function AddMember() {
   const route = useRouter();
