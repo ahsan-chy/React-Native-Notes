@@ -6,8 +6,8 @@ import { Feather, Ionicons, Entypo } from "@expo/vector-icons";
 const Stopwatch = () => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const intervalRef = useRef<number | null>(null);
 
   const startStopwatch = () => {
     if (isRunning) {

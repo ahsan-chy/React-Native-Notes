@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Signin = () => {
   const router = useRouter();
@@ -50,16 +51,16 @@ const Signin = () => {
 
             <TouchableOpacity
               className="bg-primary py-3 rounded-full shadow-md"
-              onPress={() => router.push("/members")}>
+              onPress={() => router.push("/home")}>
               <Text className="text-white text-center font-semibold text-base">SIGN IN</Text>
             </TouchableOpacity>
 
-            {/* <View className="flex-row justify-center items-center mt-6">
-              <Text className="text-sm text-secondary">Don&apos;t have an account? </Text>
-              <Pressable onPress={() => router.push("/signup")}>
-                <Text className="text-primary font-semibold">Sign Up</Text>
+            <View className="flex-row justify-center items-center mt-6">
+              <MaterialCommunityIcons name="arrow-left-thin" size={24} color="red" />
+              <Pressable onPress={() => router.push("/")}>
+                <Text className="text-secondary font-semibold"> Back to Home</Text>
               </Pressable>
-            </View> */}
+            </View>
           </ScrollView>
         </View>
       </View>
