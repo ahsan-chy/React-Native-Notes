@@ -446,8 +446,6 @@ import "./global.css";
 
 ## [Create a development build](https://docs.expo.dev/develop/development-builds/create-a-build/)
 
-
-
 #### 1. Install expo-dev-client
 
 ```javascript
@@ -456,13 +454,11 @@ npx expo install expo-dev-client
 
 #### 2. Build the native app (Android)
 
-
 ```javascript
 eas build --platform android --profile development
 ```
 
-
-#### 3. Build the native app (iOS Simulator) 
+#### 3. Build the native app (iOS Simulator)
 
 - Add a `development` Profile to `eas.json`
 - If you want to use a `development` profile, add it like this:
@@ -504,8 +500,60 @@ Now you can run:
 eas build --platform android --profile development
 ```
 
+### Warning: ⚠️
 
+- Due to runing above code you may face some issues like **`your app is not runing in Expo Go`**, it is using **`development build`**.
 
+### Solution⚡️:
+
+- ✅ Reset Your Metro Cache
+
+```javascript
+npx expo start --clear
+```
+
+- ✅ Make Sure You Don't Have a dev-client Installed
+
+```javascript
+npm uninstall expo-dev-client
+# or
+yarn remove expo-dev-client
+```
+
+- ✅ Avoid Using --dev-client Flag
+
+```javascript
+npx expo start --dev-client ❌
+```
+
+Update eas.json file back to this
+
+```javascript
+{
+  "cli": {
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview2": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "preview3": {
+      "developmentClient": true
+    },
+    "preview4": {
+      "distribution": "internal"
+    },
+    "production": {}
+  }
+}
+```
 
 ## Build APK
 
