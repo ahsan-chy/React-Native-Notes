@@ -444,6 +444,69 @@ import "./global.css";
 
 ![alt text](./assets/plus.png)
 
+## [Create a development build](https://docs.expo.dev/develop/development-builds/create-a-build/)
+
+
+
+#### 1. Install expo-dev-client
+
+```javascript
+npx expo install expo-dev-client
+```
+
+#### 2. Build the native app (Android)
+
+
+```javascript
+eas build --platform android --profile development
+```
+
+
+#### 3. Build the native app (iOS Simulator) 
+
+- Add a `development` Profile to `eas.json`
+- If you want to use a `development` profile, add it like this:
+
+```javascript
+{
+  "cli": {
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview2": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "preview3": {
+      "developmentClient": true
+    },
+    "preview4": {
+      "distribution": "internal"
+    },
+    "production": {}
+  }
+}
+```
+
+Now you can run:
+
+```javascript
+eas build --platform android --profile development
+```
+
+
+
+
 ## Build APK
 
 - 🔗 [Build APKs for Android Emulators and devices](https://docs.expo.dev/build-reference/apk/)
