@@ -9,7 +9,14 @@ export default function RootLayout() {
 
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
+
+        {/*
+         */}
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(owner)" />
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="(staff)" />
+        <Stack.Screen name="(member)" />
         <Stack.Screen name="member/[id]" />
 
         {/* Optional NotFound screen */}

@@ -32,7 +32,7 @@ const Homepage = () => {
 
           <View className="w-full h-auto">
             <TouchableOpacity
-              onPress={() => router.push("/signin")}
+              onPress={() => router.push("/login")}
               className="w-full mt-10 bg-primary py-4 px-10 rounded-full shadow-md">
               <Text className="text-white text-center text-lg font-bold">Get Started</Text>
             </TouchableOpacity>
