@@ -43,6 +43,7 @@ export default function OwnerTabsLayout() {
         options={{
           title: "Dashboard",
           headerShown: false,
+          tabBarStyle: { display: "none" },
           tabBarIcon: ({ focused }) => (
             <TabIcon
               focused={focused}
@@ -114,6 +115,14 @@ export default function OwnerTabsLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="member/[id]"
+        options={{
+          href: null, // 👈 hides from tab bar
+          headerShown: false,
+        }}
+      />
+
       {/* <Tabs.Screen
         name="profile"
         options={{
