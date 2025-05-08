@@ -404,6 +404,12 @@ import "./global.css";
   - \_layout.tsx files
   - +Plus sign
 
+- Authentication
+- Nesting navigators
+- Modals
+- Shared routes
+- Protected routes
+
 #### Simple names/no notation
 
 - Regular file and directory names without any notation signify static routes. Their URL matches exactly as they appear in your file tree. So, a file named favorites.tsx inside the feed directory will have a URL of `/feed/favorites`.

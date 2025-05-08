@@ -1,6 +1,6 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import React from "react";
-import { EvilIcons } from "@expo/vector-icons";
+import { EvilIcons, Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
 const membersData = [
@@ -34,22 +34,34 @@ const Members = () => {
   const router = useRouter();
 
   return (
-    <View className="flex-1 bg-[#f9fafb] px-5 py-6 mt-14">
-      <Text className="text-2xl font-bold text-secondary mb-4">Gym Members</Text>
+    <View className="flex-1 bg-[#f9fafb] px-5 py-6 pt-14">
+      <View>
+        <View className="w-full flex-row justify-between items-start">
+          <Text className="text-2xl font-bold text-secondary mb-4">Gym Members</Text>
+          <TouchableOpacity
+            onPress={() => router.push("/add-member")}
+            className="bg-primary rounded-3xl shadow-lg px-3 py-2">
+            <View className="flex-row items-center gap-1">
+              <Feather name="plus" size={16} color="white" />
+              <Text className="text-sm text-white">Add Member</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
 
-      <FlatList
-        data={membersData}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <MemberCard
-            id={item.id}
-            name={item.name}
-            status={item.status}
-            onPress={() => router.push(`/member/${item.id}`)} // ✅ navigate to detail
-          />
-        )}
-        showsVerticalScrollIndicator={false}
-      />
+        <FlatList
+          data={membersData}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <MemberCard
+              id={item.id}
+              name={item.name}
+              status={item.status}
+              onPress={() => router.push(`/member/${item.id}`)} // ✅ navigate to detail
+            />
+          )}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </View>
   );
 };

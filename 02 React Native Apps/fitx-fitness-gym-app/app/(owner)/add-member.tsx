@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 import Input from "@/components/ui/Input";
 import DateInput from "@/components/ui/DateInput";
 import SelectInput from "@/components/ui/SelectInput";
-import { SuccessToast } from "@/utils/Toast";
+import { SuccessToast } from "@/components/ui/Toast";
 
 const AddMember = () => {
   const router = useRouter();
