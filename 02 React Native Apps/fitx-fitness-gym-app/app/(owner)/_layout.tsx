@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { MaterialIcons, FontAwesome5, EvilIcons } from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome5, EvilIcons, Ionicons } from "@expo/vector-icons";
 import { View, Text } from "react-native";
 
 function TabIcon({
@@ -12,9 +12,9 @@ function TabIcon({
   icon: React.ReactNode;
 }) {
   return focused ? (
-    <View className="flex-row min-w-[112px] min-h-14 mt-4 justify-center items-center rounded-full overflow-hidden">
+    <View className="flex-col bg-primary mt-4 rounded-full min-w-14 min-h-14 justify-center items-center overflow-hidden">
       {icon}
-      <Text className="text-secondary text-base font-semibold ml-2">{title}</Text>
+      {/* <Text className=" text-base font-semibold text-secondary">{title}</Text> */}
     </View>
   ) : (
     <View className="size-full justify-center items-center mt-4 rounded-full">{icon}</View>
@@ -29,12 +29,16 @@ export default function OwnerTabsLayout() {
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: "#ffffff",
-          borderRadius: 50,
-          marginHorizontal: 20,
-          marginBottom: 36,
+          borderRadius: 56,
+          // marginHorizontal: 0,
+          marginBottom: 30,
           height: 52,
           position: "absolute",
-          borderTopWidth: 1,
+          borderWidth: 1,
+
+          // borderTopWidth: 1,
+          // borderTopWidth: 1,
+          // borderBottomWidth: 1,
           shadowColor: "transparent",
         },
       }}>
@@ -49,7 +53,7 @@ export default function OwnerTabsLayout() {
               focused={focused}
               title="Dashboard"
               icon={
-                <MaterialIcons name="dashboard" size={20} color={focused ? "#1E1E1E" : "#A8B5DB"} />
+                <MaterialIcons name="dashboard" size={20} color={focused ? "#fff" : "#A8B5DB"} />
               }
             />
           ),
@@ -64,7 +68,7 @@ export default function OwnerTabsLayout() {
             <TabIcon
               focused={focused}
               title="Members"
-              icon={<FontAwesome5 name="users" size={20} color={focused ? "#1E1E1E" : "#A8B5DB"} />}
+              icon={<FontAwesome5 name="users" size={20} color={focused ? "#fff" : "#A8B5DB"} />}
             />
           ),
         }}
@@ -78,9 +82,7 @@ export default function OwnerTabsLayout() {
             <TabIcon
               focused={focused}
               title="Staff"
-              icon={
-                <MaterialIcons name="people" size={20} color={focused ? "#1E1E1E" : "#A8B5DB"} />
-              }
+              icon={<MaterialIcons name="people" size={20} color={focused ? "#fff" : "#A8B5DB"} />}
             />
           ),
         }}
@@ -94,9 +96,7 @@ export default function OwnerTabsLayout() {
             <TabIcon
               focused={focused}
               title="Fees"
-              icon={
-                <MaterialIcons name="payment" size={20} color={focused ? "#1E1E1E" : "#A8B5DB"} />
-              }
+              icon={<MaterialIcons name="payment" size={20} color={focused ? "#fff" : "#A8B5DB"} />}
             />
           ),
         }}
@@ -110,7 +110,13 @@ export default function OwnerTabsLayout() {
             <TabIcon
               focused={focused}
               title="Add Member"
-              icon={<EvilIcons name="user" size={24} color={focused ? "#1E1E1E" : "#A8B5DB"} />}
+              icon={
+                <Ionicons
+                  name="person-add-outline"
+                  size={20}
+                  color={focused ? "#fff" : "#A8B5DB"}
+                />
+              }
             />
           ),
         }}
@@ -132,7 +138,7 @@ export default function OwnerTabsLayout() {
             <TabIcon
               focused={focused}
               title="Profile"
-              icon={<EvilIcons name="user" size={24} color={focused ? "#1E1E1E" : "#A8B5DB"} />}
+              icon={<EvilIcons name="user" size={24} color={focused ? "#fff" : "#A8B5DB"} />}
             />
           ),
         }}

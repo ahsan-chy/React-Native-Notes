@@ -34,7 +34,7 @@ const Members = () => {
   const router = useRouter();
 
   return (
-    <View className="flex-1 bg-[#f9fafb] px-5 py-6 pt-14">
+    <View className="flex-1 bg-[#f9fafb] px-5 pt-16">
       <View>
         <View className="w-full flex-row justify-between items-start">
           <Text className="text-2xl font-bold text-secondary mb-4">Gym Members</Text>

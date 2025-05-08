@@ -67,7 +67,8 @@ const OwnerDashboard = () => {
 
             <TouchableOpacity
               className="w-[48%] items-center bg-white border border-gray-200 rounded-xl py-5 shadow-sm mb-4"
-              onPress={() => router.push("/fees")}>
+              // onPress={() => router.push("/fees")}
+              >
               <MaterialIcons name="payment" size={24} color="#1E1E1E" />
               <Text className="text-secondary mt-2 font-semibold">GYM Expenses</Text>
             </TouchableOpacity>
