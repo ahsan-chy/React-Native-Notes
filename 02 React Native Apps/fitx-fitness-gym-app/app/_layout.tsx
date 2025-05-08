@@ -1,6 +1,8 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "./global.css"; // Tailwind/NativeWind config
+import Toast from "react-native-toast-message";
+import toastConfig from "@/components/ToastConfig";
 
 export default function RootLayout() {
   return (
@@ -20,6 +22,7 @@ export default function RootLayout() {
         {/* Optional NotFound screen */}
         <Stack.Screen name="+not-found" />
       </Stack>
+      <Toast config={toastConfig} />
     </>
   );
 }

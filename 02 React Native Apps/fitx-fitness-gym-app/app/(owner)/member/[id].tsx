@@ -9,7 +9,7 @@ const MemberDetail = () => {
   const [menuVisible, setMenuVisible] = React.useState(false);
 
   const toggleMenu = () => setMenuVisible(!menuVisible);
-  const closeMenu = () => setMenuVisible(false);
+  // const closeMenu = () => setMenuVisible(false);
 
   // Dummy extended member data
   const member = {
