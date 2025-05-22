@@ -56,7 +56,7 @@
 #### 5. **React Native Fundamentals / Core Components**
 
 - UI Components:
-  - `View`, `Text`, `Image`, `ScrollView`, `FlatList`, `TextInput`, `TouchableOpacity`
+  - `View`, `Text`, `Image`, `ScrollView`, `FlatList`, `TextInput`, `TouchableOpacity`, `SafeAreaView`, `KeyboardAvoidingView`
 - Styling:
   - `StyleSheet.create()`
   - Inline styles vs external styles
@@ -187,7 +187,7 @@ This is your dev-time BFF. It reloads only the changed files while preserving th
 - ActivityIndicator (spinner)
 - FlatList (Map long list)
 - ScrollView
-- SafeAreaView - reactnative-safe-area-context
+- SafeAreaView - `reactnative-safe-area-context`
 - Image
 - ImageBackground
 - react-native-svg
@@ -196,8 +196,8 @@ This is your dev-time BFF. It reloads only the changed files while preserving th
 - Switch
 - StatusBar
 - TextInput
--
--
+- KeyboardAvoidingView
+- Keyboard - `keyboard.dismiss()`
 -
 
 Styling
@@ -231,6 +231,100 @@ Question is
 ## Project setup
 
 Sure! Here's a clean title-only outline:
+
+## [KeyboardAvoidingView](https://docs.expo.dev/guides/keyboard-handling/)
+
+```javascript
+<KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={1} style={{ flex: 1 }}>
+  Form
+</KeyboardAvoidingView>
+```
+
+#### ✅ **What is `KeyboardAvoidingView`?**
+
+- [Docs Link](https://docs.expo.dev/guides/keyboard-handling/)
+- [Video Link](https://youtu.be/Y51mDfAhd4E)
+
+`KeyboardAvoidingView` is a built-in React Native component that automatically adjusts the position of its children when the virtual keyboard appears. This ensures that inputs like `TextInput` are not hidden behind the keyboard.
+
+---
+
+#### 📘 **Syntax:**
+
+```jsx
+<KeyboardAvoidingView
+  behavior="padding" // or "height", "position"
+  keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+  style={{ flex: 1 }}>
+  {/* content */}
+</KeyboardAvoidingView>
+```
+
+---
+
+#### 🛠️ **Props:**
+
+| Prop                     | Description                                                                        |
+| ------------------------ | ---------------------------------------------------------------------------------- |
+| `behavior`               | Defines how the view should adjust. Options: `"height"`, `"position"`, `"padding"` |
+| `keyboardVerticalOffset` | Extra space added when the keyboard appears. Useful to fine-tune layout shifts.    |
+| `enabled`                | Boolean to toggle this behavior. Defaults to `true`.                               |
+| `style`                  | Style for the wrapper view. Usually set to `flex: 1`.                              |
+
+---
+
+#### ⚙️ **`behavior` Options Explained:**
+
+| `behavior`   | Description                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------------- |
+| `"height"`   | Reduces the height of the view by the height of the keyboard. Best for full-screen layouts. |
+| `"padding"`  | Adds padding to the bottom of the view. Often used on iOS.                                  |
+| `"position"` | Moves the entire view upwards. Useful for small forms.                                      |
+
+---
+
+#### 🎯 **Use Cases:**
+
+1. **Forms with multiple `TextInput`s**
+   Prevents the keyboard from overlapping inputs.
+
+   ```jsx
+   <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+     <TextInput />
+   </KeyboardAvoidingView>
+   ```
+
+2. **Login/Signup Screens**
+   Keeps username and password fields visible when the keyboard is active.
+
+3. **Chat Apps**
+   Makes sure the message input at the bottom is still visible when typing.
+
+4. **Notes / Comments Screens**
+   Ideal for situations like your **NoteForm**, where the user types a lot.
+
+---
+
+#### 📝 **Tips:**
+
+- Always wrap `KeyboardAvoidingView` in a `SafeAreaView` or `View` with `flex: 1`.
+- Use `ScrollView` inside if you have multiple inputs and want scroll behavior.
+- Adjust `keyboardVerticalOffset` to handle fixed headers or footers.
+
+---
+
+#### ❗ Gotchas:
+
+- Doesn't work well on Android with `behavior="padding"` — prefer `"height"` or `"position"` there.
+- On Android, sometimes you may need to also use `KeyboardAvoidingView` **with** `ScrollView` for best behavior.
+
+---
+
+Would you like a reusable version of a `KeyboardAwareWrapper` component with platform handling?
+
+```javascript
+
+```
 
 ---
 
@@ -397,6 +491,7 @@ import "./global.css";
 - `+not-found.tsx`
 
 - [Types of route notation](https://docs.expo.dev/router/basics/notation/)
+
   - Simple names/no notation
   - Square [brackets]
   - Group Routes - (Parentheses)
@@ -607,6 +702,8 @@ eas build -p android --profile preview
 
 - If you get `⚠️ zsh: command not found: eas`. ✅ Install `eas-cli` Globally
 
+- [EAS Docs](https://expo.dev/eas)
+
 ```javascript
 npm install -g eas-cli
 ```
@@ -691,3 +788,456 @@ Copy and paste url in browser to download the app.
 
 - 🤖 Android app:
   https://expo.dev/artifacts/eas/8DDCEgPi7TdrutAEhN4JLe.apk
+
+## Storage options React Native
+
+In a React Native (Expo) project, you have several options for **data storage**, depending on the use case (e.g., local vs. cloud, key-value vs. structured, encrypted vs. plaintext). Here's a breakdown:
+
+---
+
+### 🔸 Storage options Table
+
+| Use Case               | Recommended Option       |
+| ---------------------- | ------------------------ |
+| Key-value (non-secure) | `AsyncStorage`           |
+| Key-value (secure)     | `SecureStore`            |
+| Structured data        | `SQLite`                 |
+| High-performance       | `MMKV` (needs EAS)       |
+| File storage           | `expo-file-system`       |
+| Cloud sync             | Firebase, Supabase, etc. |
+
+---
+
+## Expo Storage options
+
+1. AsyncStorage
+2. Expo FileSystem
+3. Expo SecureStore
+4. SQLite (Expo)
+5. MMKV (via `react-native-mmkv`)
+6. Cloud Storage Options
+
+- Firebase
+- Supabase
+- Appwrite
+- Realm
+-
+
+7. WatermelonDB
+
+### 🔹 1. **AsyncStorage**
+
+#### ✅ Best for:
+
+- Storing simple key-value data locally (tokens, preferences)
+- `AsyncStorage` is an asynchronous, unencrypted, key-value storage system that allows you to persist data locally in your React Native app.
+
+#### 🔧 Setup:
+
+If using Expo SDK 50+:
+
+- With npm:
+
+```bash
+npm install @react-native-async-storage/async-storage
+```
+
+- With Yarn:
+
+```bash
+yarn add @react-native-async-storage/async-storage
+```
+
+- With Expo CLI:
+
+```bash
+npx expo install @react-native-async-storage/async-storage
+```
+
+```js
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+await AsyncStorage.setItem("token", "abc123");
+const token = await AsyncStorage.getItem("token");
+await AsyncStorage.removeItem("token");
+```
+
+- **Pros**: Simple, widely used
+- **Cons**: Not encrypted
+
+### 🔹 Commonly Used Functions
+
+#### ✅ `setItem(key, value)`
+
+Stores a string value with the given key.
+
+```js
+await AsyncStorage.setItem("userToken", "abc123");
+```
+
+#### ✅ `getItem(key)`
+
+Retrieves the string value for the key.
+
+```js
+const token = await AsyncStorage.getItem("userToken");
+```
+
+#### ✅ `removeItem(key)`
+
+Removes the specified key.
+
+```js
+await AsyncStorage.removeItem("userToken");
+```
+
+#### ✅ `clear()`
+
+Clears **all keys** stored in AsyncStorage.
+
+```js
+await AsyncStorage.clear();
+```
+
+#### ✅ `multiSet([[key, value], ...])`
+
+Sets multiple key-value pairs at once.
+
+```js
+await AsyncStorage.multiSet([
+  ["theme", "dark"],
+  ["language", "en"],
+]);
+```
+
+#### ✅ `multiGet([key1, key2, ...])`
+
+Gets multiple keys at once.
+
+```js
+const values = await AsyncStorage.multiGet(["theme", "language"]);
+values.forEach(([key, value]) => console.log(key, value));
+```
+
+#### ✅ `getAllKeys()`
+
+Lists all keys currently stored.
+
+```js
+const keys = await AsyncStorage.getAllKeys();
+```
+
+---
+
+### 🔹 Example Use Cases
+
+#### ✅ Store a login token
+
+```js
+await AsyncStorage.setItem("token", "xyz123");
+```
+
+#### ✅ Get token for authentication
+
+```js
+const token = await AsyncStorage.getItem("token");
+if (token) {
+  // proceed with authenticated flow
+}
+```
+
+---
+
+### 🔹 Custom Hook: `useAsyncStorage`
+
+This hook simplifies storing and retrieving a value.
+
+```tsx
+import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+export function useAsyncStorage(key) {
+  const [storedValue, setStoredValue] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const item = await AsyncStorage.getItem(key);
+        if (item !== null) {
+          setStoredValue(JSON.parse(item));
+        }
+      } catch (error) {
+        console.error("Failed to load AsyncStorage key:", key, error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [key]);
+
+  const setValue = async (value) => {
+    try {
+      await AsyncStorage.setItem(key, JSON.stringify(value));
+      setStoredValue(value);
+    } catch (error) {
+      console.error("Failed to set AsyncStorage key:", key, error);
+    }
+  };
+
+  const removeValue = async () => {
+    try {
+      await AsyncStorage.removeItem(key);
+      setStoredValue(null);
+    } catch (error) {
+      console.error("Failed to remove AsyncStorage key:", key, error);
+    }
+  };
+
+  return { storedValue, setValue, removeValue, loading };
+}
+```
+
+---
+
+#### ✅ Example Usage
+
+```tsx
+const { storedValue: user, setValue: setUser, removeValue: logout } = useAsyncStorage("user");
+
+useEffect(() => {
+  if (user) {
+    console.log("User loaded:", user);
+  }
+}, [user]);
+
+// To save user:
+setUser({ name: "John", role: "admin" });
+
+// To log out:
+logout();
+```
+
+---
+
+### ✅ Custom Hook: `useAsyncStorageList`
+
+```tsx
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
+
+type UseAsyncStorageListOptions<T> = {
+  storageKey: string;
+  initialData?: T[];
+};
+
+export function useAsyncStorageList<T>({
+  storageKey,
+  initialData = [],
+}: UseAsyncStorageListOptions<T>) {
+  const [items, setItems] = useState<T[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadItems();
+  }, []);
+
+  const loadItems = async () => {
+    try {
+      const storedData = await AsyncStorage.getItem(storageKey);
+      if (storedData) {
+        setItems(JSON.parse(storedData));
+      } else {
+        setItems(initialData);
+      }
+    } catch (error) {
+      console.error(`Error loading data for key "${storageKey}":`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const saveItems = async (newItems: T[]) => {
+    try {
+      await AsyncStorage.setItem(storageKey, JSON.stringify(newItems));
+      setItems(newItems);
+    } catch (error) {
+      console.error(`Error saving data for key "${storageKey}":`, error);
+    }
+  };
+
+  const addItem = async (item: T) => {
+    const newList = [item, ...items];
+    await saveItems(newList);
+  };
+
+  const updateItem = async (id: string, updatedFields: Partial<T>) => {
+    const newList = items.map((item: any) =>
+      item.id === id ? { ...item, ...updatedFields } : item
+    );
+    await saveItems(newList);
+  };
+
+  const removeItem = async (id: string) => {
+    const newList = items.filter((item: any) => item.id !== id);
+    await saveItems(newList);
+  };
+
+  return {
+    items,
+    loading,
+    setItems: saveItems,
+    addItem,
+    updateItem,
+    removeItem,
+    reload: loadItems,
+  };
+}
+```
+
+---
+
+### ✅ Usage Example: Notes App
+
+```tsx
+const {
+  items: notes,
+  addItem: createNote,
+  updateItem: editNote,
+  removeItem: deleteNote,
+  reload: loadNotes,
+} = useAsyncStorageList<NoteType>({
+  storageKey: "@notes_app_storage",
+});
+```
+
+#### Where `NoteType` is:
+
+```ts
+type NoteType = {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
+```
+
+---
+
+### ✅ Adding a New Note Example
+
+```tsx
+createNote({
+  id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+  title: "New Note",
+  content: "This is the content",
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+});
+```
+
+---
+
+### 🔹 2. **SecureStore (Expo)**
+
+#### ✅ Best for:
+
+- Storing sensitive data (tokens, passwords)
+
+#### 🔧 Setup:
+
+```bash
+npx expo install expo-secure-store
+```
+
+```js
+import * as SecureStore from "expo-secure-store";
+
+await SecureStore.setItemAsync("token", "abc123");
+const token = await SecureStore.getItemAsync("token");
+await SecureStore.deleteItemAsync("token");
+```
+
+- **Pros**: Encrypted, secure
+- **Cons**: Slower, limited data size
+
+---
+
+### 🔹 3. **SQLite (Expo)**
+
+#### ✅ Best for:
+
+- Structured data, offline storage
+
+#### 🔧 Setup:
+
+```bash
+npx expo install expo-sqlite
+```
+
+```js
+import * as SQLite from "expo-sqlite";
+
+const db = SQLite.openDatabase("mydb.db");
+db.transaction((tx) => {
+  tx.executeSql(
+    "CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT);"
+  );
+  tx.executeSql("INSERT INTO items (value) VALUES (?);", ["test"]);
+});
+```
+
+- **Pros**: Good for relational data
+- **Cons**: More complex than key-value storage
+
+---
+
+### 🔹 4. **MMKV (via `react-native-mmkv`)**
+
+#### ✅ Best for:
+
+- High-performance local storage
+
+#### ⚠️ Not supported by Expo Go (needs EAS Build or dev client)
+
+```bash
+npm install react-native-mmkv
+```
+
+- **Pros**: Very fast, encrypted
+- **Cons**: Not Expo Go-compatible without custom dev client
+
+---
+
+### 🔹 5. **FileSystem (Expo)**
+
+#### ✅ Best for:
+
+- Storing files, images, or blobs
+
+#### 🔧 Setup:
+
+```bash
+npx expo install expo-file-system
+```
+
+```js
+import * as FileSystem from "expo-file-system";
+
+const fileUri = FileSystem.documentDirectory + "myfile.txt";
+await FileSystem.writeAsStringAsync(fileUri, "Hello World");
+const contents = await FileSystem.readAsStringAsync(fileUri);
+```
+
+- **Pros**: Flexible for files
+- **Cons**: Not ideal for structured data
+
+---
+
+### 🔹 6. **Cloud Storage Options**
+
+- **Firebase** (Firestore, Realtime DB, Cloud Storage)
+- **Supabase**
+- **AWS Amplify**
+- Use these for syncing data across devices and users.
