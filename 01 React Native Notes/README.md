@@ -19,6 +19,10 @@
   - Stability
   - Enterprise readiness
   - Expo SDK alignment
+- New **JSI** (JavaScript Interface)
+- TurboModules
+- Fabric
+- HotReloading
 
 ---
 
@@ -26,16 +30,8 @@
 
 - Install prerequisites:
   - Node.js, npm or yarn
-- Install Expo CLI:
-  ```bash
-  npm install -g expo-cli
-  ```
-- Initialize a new Expo project:
-  ```bash
-  npx create-expo-app@latest
-  cd MyApp
-  npm start
-  ```
+- Install Expo CLI
+- Initialize a new Expo project
 - Use Expo Go app for live testing
 
 ---
@@ -57,28 +53,76 @@
 
 - UI Components:
   - `View`, `Text`, `Image`, `ScrollView`, `FlatList`, `TextInput`, `TouchableOpacity`, `SafeAreaView`, `KeyboardAvoidingView`
+  - Additional Components: `Button`, `TouchableHighlight`, `TouchableWithoutFeedback`, `ActivityIndicator`, `ImageBackground`, `Modal`, `Alert`, `Switch`, `StatusBar`, `Keyboard`
 - Styling:
   - `StyleSheet.create()`
   - Inline styles vs external styles
+  - Stylesheet
+  - NativeWind
 - Layout with Flexbox:
   - `flexDirection`, `justifyContent`, `alignItems`
 - Platform-specific styles using `Platform` API
+- Navigation:
+  - Stack Navigation
+  - Tab Navigation
+- `View`
+- `FlatList`
+  - When to use `FlatList` vs `map`
 
 ---
 
-#### 6. **Navigation**
+#### 6. **KeyboardAvoidingView**
+
+- What is `KeyboardAvoidingView`?
+- Syntax
+- Props
+- `behavior` Options Explained
+- Use Cases
+- Tips
+- Gotchas
+
+---
+
+#### 7. **Project Setup**
+
+- Create and Start a New Project
+- Reset Project (Get a Fresh App Structure)
+- Install Required Packages
+- Initialize Tailwind Configuration
+- Create Global CSS File
+- Add Babel Preset
+- Customize Metro Config
+- Import Global CSS
+- Update `app.json`
+- Create `nativewind-env.d.ts` File
+
+---
+
+#### 8. **Navigation**
 
 - Using **Expo Router**:
   - File-based routing
   - Nested routes
   - Dynamic routes (e.g., `[id].js`)
+  - Types of Route Notation
+    - Simple names/no notation
+    - Square [brackets]
+    - Group Routes - (Parentheses)
+    - `index.tsx` files
+    - `_layout.tsx` files
+    - `+Plus` sign
+  - Authentication
+  - Nesting navigators
+  - Modals
+  - Shared routes
+  - Protected routes
 - OR using **React Navigation**:
   - Stack, tab, and drawer navigators
   - Navigation container setup
 
 ---
 
-#### 7. **State and Props**
+#### 9. **State and Props**
 
 - `useState` hook for managing state
 - `useEffect` for side effects (e.g., API calls)
@@ -87,7 +131,7 @@
 
 ---
 
-#### 8. **Fetching and Displaying Data**
+#### 10. **Fetching and Displaying Data**
 
 - Using `fetch()` or Axios
 - Showing lists with `FlatList` or `SectionList`
@@ -95,7 +139,7 @@
 
 ---
 
-#### 9. **Form Handling & User Inputs**
+#### 11. **Form Handling & User Inputs**
 
 - Controlled components (`TextInput` with state)
 - Form validation basics
@@ -103,7 +147,7 @@
 
 ---
 
-#### 10. **Assets and Media**
+#### 12. **Assets and Media**
 
 - Using images from the `assets/` folder
 - Custom fonts with `expo-font`
@@ -111,7 +155,7 @@
 
 ---
 
-#### 11. **Debugging & Tools**
+#### 13. **Debugging & Tools**
 
 - Console logging
 - Debugging with Chrome or React Native Debugger
@@ -120,7 +164,43 @@
 
 ---
 
-#### 12. **Building & Deployment**
+#### 14. **Create a Development Build**
+
+- Install `expo-dev-client`
+- Build the native app (Android)
+- Build the native app (iOS Simulator)
+
+---
+
+#### 15. **Build APK**
+
+- Create `eas.json` file in root folder
+- Create Account on Expo
+  - Install `eas-cli` Globally
+  - Keystore Error Solutions
+  - `gradlew` Error Solutions
+
+---
+
+#### 16. **Storage Options React Native**
+
+- Storage Options Table
+- Expo Storage Options
+  - AsyncStorage
+    - Commonly Used Functions
+    - Example Use Cases
+    - Custom Hook: `useAsyncStorage`
+    - Custom Hook: `useAsyncStorageList`
+    - Usage Example: Notes App
+  - SecureStore (Expo)
+  - SQLite (Expo)
+  - MMKV (via `react-native-mmkv`)
+  - FileSystem (Expo)
+  - Cloud Storage Options
+
+---
+
+#### 17. **Building & Deployment**
 
 - Preview with `npx expo start --preview`
 - Development builds using [Expo Dev Builds](https://docs.expo.dev/develop/development-builds/introduction/)
@@ -129,7 +209,7 @@
 
 ---
 
-#### 13. **Next Steps & Going Beyond**
+#### 18. **Next Steps & Going Beyond**
 
 - Using TypeScript with React Native
 - Integrating native modules (bare workflow)
@@ -198,14 +278,13 @@ This is your dev-time BFF. It reloads only the changed files while preserving th
 - TextInput
 - KeyboardAvoidingView
 - Keyboard - `keyboard.dismiss()`
--
 
-Styling
+### Styling
 
 - Stylesheet
 - NativeWind
 
-Navigation
+### Navigation
 
 - Stack Navigation
 - Tab Navigation
@@ -214,25 +293,20 @@ Navigation
 
 - View is like div tag in react app
 - View is flexbox layout by default
--
 
 ### `FlatList`
 
-Question is
-
-##### When should you use FlatList?
+#### When should you use FlatList?
 
 - For larger list and smooth scrolling
 
-##### When should you use map?
+#### When should you use map?
 
 - For small lists
 
-## Project setup
+## **KeyboardAvoidingView**
 
-Sure! Here's a clean title-only outline:
-
-## [KeyboardAvoidingView](https://docs.expo.dev/guides/keyboard-handling/)
+[KeyboardAvoidingView](https://docs.expo.dev/guides/keyboard-handling/)
 
 ```javascript
 <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={1} style={{ flex: 1 }}>
@@ -328,7 +402,9 @@ Would you like a reusable version of a `KeyboardAwareWrapper` component with pla
 
 ---
 
-📘 Project Setup Outline
+## **Project Setup**
+
+### 📘 Project Setup Outline
 
 1. Create and Start a New Project
 2. Reset Project (Get a Fresh App Structure)
@@ -366,7 +442,7 @@ npx expo start --tunnel
 npx expo start --clear
 ```
 
-- You can run project on **[android, Web, Expo](https://docs.expo.dev/linking/android-app-links/)**
+- You can run project on **[android, Web, Expo](https://docsrou.expo.dev/linking/android-app-links/)**
 
 #### Get a fresh project - Reset Project
 
@@ -409,7 +485,7 @@ module.exports = {
 };
 ```
 
-- Create a **`global.css`** file and in app folder and then add the Tailwind directives.
+- Create a **`global.css`** file in app folder and then add the Tailwind directives.
 
 ```javascript
 @tailwind base;
@@ -430,7 +506,7 @@ module.exports = function (api) {
 
 ### 4. Modify your metro.config.js
 
-- Generate metro file with following commond
+- Generate metro file with following command
 
 ```javascript
 npx expo customize metro.config.js
@@ -477,15 +553,14 @@ import "./global.css";
 // NOTE: This file should not be edited and should be committed with your source code. It is generated by NativeWind.
 ```
 
-## Routing and Navigation
+## **Routing and Navigation**
 
 [Documentation Link](https://docs.expo.dev/tutorial/add-navigation/)
 
 - File-based routing
--
 
 - Stack
-- tabs
+- Tabs
 - Drawer
 - Link
 - `+not-found.tsx`
@@ -603,7 +678,7 @@ eas build --platform android --profile development
 
 ### Warning: ⚠️
 
-- Due to runing above code you may face some issues like **`your app is not runing in Expo Go`**, it is using **`development build`**.
+- Due to running above code you may face some issues like **`your app is not running in Expo Go`**, it is using **`development build`**.
 
 ### Solution⚡️:
 
@@ -656,10 +731,9 @@ Update eas.json file back to this
 }
 ```
 
-## Build APK
+## **Build APK**
 
 - 🔗 [Build APKs for Android Emulators and devices](https://docs.expo.dev/build-reference/apk/)
--
 
 #### 1. Create **`eas.json`** file in root folder
 
@@ -692,7 +766,7 @@ Update eas.json file back to this
 
 #### 2. Create Account on Expo
 
-- Run following commond
+- Run following command
 
 ```javascript
 eas build -p android --profile preview
@@ -776,7 +850,7 @@ npm update
  npx expo install --check
 ```
 
-- Run again build commond
+- Run again build command
 
 ```javascript
 eas build -p android --profile preview
@@ -789,13 +863,13 @@ Copy and paste url in browser to download the app.
 - 🤖 Android app:
   https://expo.dev/artifacts/eas/8DDCEgPi7TdrutAEhN4JLe.apk
 
-## Storage options React Native
+## **Storage Options React Native**
 
-In a React Native (Expo) project, you have several options for **data storage**, depending on the use case (e.g., local vs. cloud, key-value vs. structured, encrypted vs. plaintext). Here's a breakdown:
+In a React Native (Expo) project enim id est laborum.
 
 ---
 
-### 🔸 Storage options Table
+### 🔸 Storage Options Table
 
 | Use Case               | Recommended Option       |
 | ---------------------- | ------------------------ |
@@ -808,7 +882,7 @@ In a React Native (Expo) project, you have several options for **data storage**,
 
 ---
 
-## Expo Storage options
+## **Expo Storage Options**
 
 1. AsyncStorage
 2. Expo FileSystem
@@ -821,7 +895,6 @@ In a React Native (Expo) project, you have several options for **data storage**,
 - Supabase
 - Appwrite
 - Realm
--
 
 7. WatermelonDB
 
@@ -1020,7 +1093,7 @@ logout();
 
 ---
 
-### ✅ Custom Hook: `useAsyncStorageList`
+### 🔹 Custom Hook: `useAsyncStorageList`
 
 ```tsx
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -1102,9 +1175,13 @@ export function useAsyncStorageList<T>({
 ```tsx
 const {
   items: notes,
+
   addItem: createNote,
+
   updateItem: editNote,
+
   removeItem: deleteNote,
+
   reload: loadNotes,
 } = useAsyncStorageList<NoteType>({
   storageKey: "@notes_app_storage",
@@ -1116,9 +1193,13 @@ const {
 ```ts
 type NoteType = {
   id: string;
+
   title: string;
+
   content: string;
+
   createdAt: string;
+
   updatedAt: string;
 };
 ```
@@ -1130,9 +1211,13 @@ type NoteType = {
 ```tsx
 createNote({
   id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+
   title: "New Note",
+
   content: "This is the content",
+
   createdAt: new Date().toISOString(),
+
   updatedAt: new Date().toISOString(),
 });
 ```
