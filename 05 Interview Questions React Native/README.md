@@ -444,6 +444,400 @@ const styles = StyleSheet.create({
 
 - 'AsyncStorage' is an API in React Native for **asynchronous, unencrypted, and persistent storage** of small amounts of data. It's often used to store settings, preferences, or authentication tokens locally on the user's device.
 
+### 31. What are the available options for Storage in React Native?
+
+#### Storage Options Table
+
+| Storage Option     | Type         | Security  | Platform Support | Use Case Examples                |
+| ------------------ | ------------ | --------- | ---------------- | -------------------------------- |
+| AsyncStorage       | Key-Value    | Basic     | iOS, Android     | User preferences, tokens         |
+| SecureStore (Expo) | Key-Value    | Encrypted | iOS, Android     | Sensitive data, auth tokens      |
+| SQLite (Expo)      | SQL Database | Moderate  | iOS, Android     | Structured data, offline caching |
+| MMKV               | Key-Value    | Encrypted | iOS, Android     | Fast storage, large data sets    |
+| FileSystem (Expo)  | Files        | Depends   | iOS, Android     | Images, documents, backups       |
+| Cloud Storage      | Remote       | High      | All              | Backups, syncing across devices  |
+
+#### Expo Storage Options
+
+- **AsyncStorage**
+
+  - Commonly Used Functions:
+    - `setItem`, `getItem`, `removeItem`, `mergeItem`, `clear`
+  - Example Use Cases:
+    - Storing user settings, authentication tokens, app state
+  - Custom Hook: `useAsyncStorage`
+  - Custom Hook: `useAsyncStorageList`
+  - Usage Example: Notes App
+
+    ```jsx
+    import AsyncStorage from "@react-native-async-storage/async-storage";
+
+    // Save a note
+    await AsyncStorage.setItem("note", "This is a note");
+
+    // Retrieve a note
+    const note = await AsyncStorage.getItem("note");
+    ```
+
+- **SecureStore (Expo)**
+
+  - For storing sensitive data securely (e.g., passwords, tokens)
+  - Example:
+    ```js
+    import * as SecureStore from "expo-secure-store";
+    await SecureStore.setItemAsync("token", "abc123");
+    ```
+
+- **SQLite (Expo)**
+
+  - For structured, relational data storage
+  - Example:
+    ```js
+    import * as SQLite from "expo-sqlite";
+    const db = SQLite.openDatabase("notes.db");
+    ```
+
+- **MMKV** (via `react-native-mmkv`)
+
+  - High-performance, encrypted key-value storage
+  - Example:
+    ```js
+    import { MMKV } from "react-native-mmkv";
+    const storage = new MMKV();
+    storage.set("user", "John");
+    ```
+
+- **FileSystem (Expo)**
+
+  - For storing files, images, and documents
+  - Example:
+    ```js
+    import * as FileSystem from "expo-file-system";
+    await FileSystem.writeAsStringAsync(FileSystem.documentDirectory + "file.txt", "Hello");
+    ```
+
+- **Cloud Storage Options**
+  - Firebase, AWS S3, Google Cloud Storage, etc.
+  - Used for syncing data across devices or backups
+
+### 32. How can you integrate Redux with a React Native app?
+
+- To integrate Redux in a React Native app:
+  1. Install `redux` and `react-redux`.
+  2. Create a Redux store using reducers.
+  3. Wrap your app with the `<Provider>` component from `react-redux` and pass the store.
+  4. Use `useSelector` to access state and `useDispatch` to dispatch actions in your components.
+
+### 33. How do you optimize performance in a React Native application?
+
+- Optimize performance in React Native by:
+  1. Using `React.PureComponent` or `React.memo` to prevent unnecessary re-renders.
+  2. Memoizing functions and values with `useCallback` and `useMemo`.
+  3. Optimizing render methods and minimizing the number of components rendered.
+  4. Implementing code splitting and lazy loading where possible.
+  5. Using FlatList or SectionList for large lists instead of ScrollView.
+  6. Profiling with tools like `React DevTools` and `Flipper` to identify bottlenecks.
+
+### 34. What are 'Touchable' components in React Native and how do they work?
+
+- 'Touchable' components in React Native, such as `TouchableOpacity` and `TouchableHighlight`, provide touch interactions for UI elements. They respond to touch events like `onPress` and `onLongPress`, and provide visual feedback, making apps feel more interactive.
+
+### 35. How do you handle form validation in React Native?
+
+Form validation in React Native is typically managed **`using component state and event handlers.`** You capture user input with components like `TextInput`, validate the input according to your rules (e.g., required fields, email format), and display error messages as needed. For more complex forms, libraries like **[Formik](https://formik.org/)** and **[Yup](https://github.com/jquense/yup)** can simplify validation logic.
+
+**Example (basic validation):**
+
+```jsx
+import React, { useState } from "react";
+import { View, TextInput, Button, Text } from "react-native";
+
+export default function FormExample() {
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+
+  const validate = () => {
+    if (!email.includes("@")) {
+      setError("Invalid email address");
+    } else {
+      setError("");
+      // Proceed with form submission
+    }
+  };
+
+  return (
+    <View>
+      <TextInput
+        value={email}
+        onChangeText={setEmail}
+        placeholder="Enter email"
+        style={{ borderWidth: 1, marginBottom: 8 }}
+      />
+      {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
+      <Button title="Submit" onPress={validate} />
+    </View>
+  );
+}
+```
+
+**Tip:** For advanced validation, consider using Formik with Yup for schema-based validation.
+
+### 36. React Native Managed vs Bare
+
+-
+
+### 37. Explain the Virtual DOM and its relevance in React Native.
+
+- The Virtual DOM is a concept in React (and React Native) that represents the UI as an in-memory tree structure of components. When there are changes to a component's props or state, React generates a new Virtual DOM tree, compares it with the previous one using a process called **`reconciliation`**, and then updates the actual DOM with the minimal necessary changes.
+
+### 38. What is the purpose of the 'PixelRatio' module in React Native?
+
+-
+
+### 39. **How do you handle push notifications in a React Native app?**
+
+Push notifications are essential for keeping users engaged with an app. To handle push notifications in a React Native app, follow these steps:
+
+**1. Set up push notification services**  
+Integrate a push notification service like **Firebase Cloud Messaging (FCM)** or **Apple Push Notification Service (APNs)** for iOS.
+
+**2. Request permissions**  
+Use libraries such as **`react-native-push-notification`** or **`@react-native-community/push-notification-ios`** to request notification permissions from users.
+
+**3. Handle registration**  
+Register the device token with the push notification service. The token is necessary for sending notifications to the device.
+
+**4. Handle notifications**  
+Configure the app to handle incoming notifications, whether the app is in the foreground, background, or closed. You can define custom behaviors based on notification data.
+
+**5. Display notifications**  
+Use the notification library to display local or remote notifications to users.
+
+**Example (using Firebase Cloud Messaging):**
+
+```js
+import messaging from "@react-native-firebase/messaging";
+import { Alert } from "react-native";
+
+// Request permission
+await messaging().requestPermission();
+
+// Get device token
+const token = await messaging().getToken();
+
+// Listen for foreground messages
+messaging().onMessage(async (remoteMessage) => {
+  Alert.alert("New Notification", remoteMessage.notification.body);
+});
+```
+
+### **40. How can you implement bi-directional communication in React Native?**
+
+Bi-directional communication involves the exchange of data and events between parent and child components. React Native provides several ways to achieve this:
+
+- **Props:** Pass data from parent to child components using props. Child components receive data as props and can trigger events by using callbacks passed from the parent.
+- **Context API:** Use the Context API to share data between components that are not directly connected in the component tree. This avoids the need to pass props through intermediate components.
+- **State management libraries:** Libraries like Redux and MobX enable global state management, allowing any component to access and modify shared state.
+- **Events and callbacks:** Child components can emit events or call callbacks provided by the parent components to communicate changes or trigger actions.
+- **React hooks:** Use custom hooks to encapsulate stateful logic and share it across components, enabling reusable behavior.
+- **Native modules (for native communication):** For complex scenarios, you can create native modules that expose native functionality to JavaScript and vice versa.
+
+The choice of communication method depends on the complexity of your app and the level of decoupling you need between components.
+
+### 41. Discuss the role of 'SafeAreaView' in React Native and why it's important.
+
+- SafeAreaView is a component provided by React Native that ensures content is displayed within safe insets, avoiding overlaps with notches, status bars, and navigation bars on various devices. It's particularly important for creating a consistent and user-friendly UI across different screen
+
+### 42. Explain the purpose of the 'AppState' module in React Native.
+
+### 43. Describe the bridge communication in React Native.
+
+**Bridge communication in React Native** refers to the mechanism that enables JavaScript code to communicate with native code on the device.
+
+#### Key Points
+
+- **Asynchronous communication:** The bridge handles asynchronous communication between JavaScript and native modules. JavaScript sends requests to native modules, which are executed on the native thread, and results are sent back to JavaScript.
+- **Native modules:** Native modules are JavaScript modules that expose methods to be called from JavaScript. These modules are implemented in native code (Java/Objective-C/Swift) and provide access to native functionality.
+- **Performance:** The bridge allows React Native to achieve native performance by delegating heavy computations and UI rendering to the native side.
+- **Serialization and deserialization:** Data sent between JavaScript and native code is serialized and deserialized (often as JSON), ensuring compatibility between the two environments.
+- **Communication overhead:** Frequent communication between JavaScript and native code can introduce overhead. It's important to optimize communication patterns for performance.
+
+### 44. How can you implement background tasks in a React Native app?
+
+Background tasks are important for performing operations that don't require user interaction when the app is not in the foreground. React Native provides mechanisms to achieve background tasks:
+
+#### Common Approaches for Background Tasks in React Native
+
+- **Headless JS:** Run JavaScript code in the background, even when the app is closed. Useful for tasks like data sync, analytics, and notification processing.
+- **Background fetch:** Use the `react-native-background-fetch` library to schedule periodic background data updates or trigger actions.
+- **Push notifications:** While not true background tasks, push notifications can prompt the app to perform actions or updates when received.
+- **Native modules:** For advanced background processing, implement custom native modules to handle tasks on the native side.
+- **Background geolocation:** Use the `react-native-background-geolocation` library to track device location and perform actions based on location changes, even in the background.
+
+**Example (using react-native-background-fetch):**
+
+```js
+import BackgroundFetch from "react-native-background-fetch";
+
+BackgroundFetch.configure(
+  {
+    minimumFetchInterval: 15, // minutes
+  },
+  async (taskId) => {
+    // Perform your background task here
+    console.log("Background fetch executed");
+    BackgroundFetch.finish(taskId);
+  },
+  (error) => {
+    console.log("Background fetch failed to start", error);
+  }
+);
+```
+
+> **Note:** iOS background execution is limited and subject to system constraints. Always test thoroughly on real devices.
+
+### 45. Explain the concept of 'Babel' and its role in React Native development.
+
+- Babel is a JavaScript compiler that converts modern JavaScript code (ES6/ES7) into an older version (ES5) that is compatible with most browsers and environments. In React Native development, Babel allows developers to write modern JavaScript syntax in their codebase, which is then transformed into code that the React Native runtime can understand. This enables the use of features like arrow functions, classes, and destructuring. Babel is crucial for ensuring cross-platform compatibility and leveraging the latest language features while maintaining broader device support.
+
+### 46. Explain the purpose of 'FlatList' and 'SectionList' for efficient data rendering.
+
+'FlatList' and 'SectionList' are React Native components designed for efficiently rendering large lists of data.
+
+- **FlatList** is used for simple, single-column lists.
+- **SectionList** is used for grouped lists with section headers.
+
+Both use "virtualization," meaning only items visible on the screen are rendered, which greatly improves performance and reduces memory usage for long lists.
+
+They support features like lazy loading, pull-to-refresh, and customizable rendering via props such as `renderItem` (for items) and `renderSectionHeader` (for section headers).
+
+**Example: FlatList**
+
+```jsx
+import React from "react";
+import { FlatList, Text, View } from "react-native";
+
+const data = [
+  { id: "1", name: "Apple" },
+  { id: "2", name: "Banana" },
+  { id: "3", name: "Cherry" },
+];
+
+export default function MyList() {
+  return (
+    <FlatList
+      data={data}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <View style={{ padding: 10 }}>
+          <Text>{item.name}</Text>
+        </View>
+      )}
+    />
+  );
+}
+```
+
+**Example: SectionList**
+
+```jsx
+import React from "react";
+import { SectionList, Text, View } from "react-native";
+
+const sections = [
+  {
+    title: "Fruits",
+    data: ["Apple", "Banana", "Cherry"],
+  },
+  {
+    title: "Vegetables",
+    data: ["Carrot", "Broccoli"],
+  },
+];
+
+export default function MySectionList() {
+  return (
+    <SectionList
+      sections={sections}
+      keyExtractor={(item, index) => item + index}
+      renderItem={({ item }) => (
+        <View style={{ padding: 10 }}>
+          <Text>{item}</Text>
+        </View>
+      )}
+      renderSectionHeader={({ section: { title } }) => (
+        <Text style={{ fontWeight: "bold", fontSize: 16 }}>{title}</Text>
+      )}
+    />
+  );
+}
+```
+
+### 47. Different Hooks name
+
+React Hooks
+
+- useState
+- useEffect
+- useRef
+- useReducer
+- useLayoutEffect
+- useMemo
+- useCallback
+- useId
+- useImpertiveHandle
+- useContext
+- useTransition
+
+### 48. Custom Hooks
+
+Some of the most useful and commonly used custom hooks in React Native:
+
+- `useIsMobile`
+- `useNotes`
+- `useGetProducts`
+- `useKeyboard` – Detects keyboard open/close and height.
+- `useDarkMode` – Detects and responds to system dark mode.
+- `useDimensions` – Gets device/window dimensions for responsive layouts.
+- `usePrevious` – Tracks the previous value of a variable.
+- `useFetch` – Handles data fetching with loading and error states.
+- `useDebounce` – Debounces a value for delayed updates (e.g., search input).
+- `useAsyncStorage` – Simplifies AsyncStorage usage with state.
+- `useIsMounted` – Checks if a component is still mounted before updating state.
+- `useTimeout` – Runs a callback after a delay.
+
+### 49. How page performance increase in React?
+
+Performance optimization techniques explain.
+
+- Code Splitting
+- Lazy Loading
+- Memoization
+- Use Production Build
+- Reduce Bundle Size
+- Optimize Images and Assets:
+- Minimize Renders:
+- Optimize State Management:
+
+### State management in React
+
+- Context API
+- Redux & Redux Tool Kit (RTK)
+- Mobx
+- Zustand
+
+### 50. If I write await then how program will execute?
+
+- When i put await in any function. This specific part become synchronous.
+
+### 51. Interceptors in Axios
+
+- Jab bhe request ay gi ya jay gi to ya, interceptor say guzar kr process ho gi. It is like middleware.
+
+- Interceptors allow you to modify the request or response before it is sent or received by the server.
+
+- Interceptors are useful because they allow developers to add custom functionality to requests and responses without modifying the actual code that makes the request.
+
 ---
 
 ### 🔹 **Hooks & State Management**
