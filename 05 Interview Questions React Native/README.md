@@ -57,20 +57,20 @@
 
 ### 🔹 **Basic React Native Questions**
 
-0. **Current React Native Version**
+### 0. Current React Native Version
 
 - React Native 0.80.1
 - React 19.1.0
 - Node 22.16.0
 - NPM 11.4.2
 
-1. **What is React Native, and how is it different from React?**
+### 1. What is React Native, and how is it different from React?
 
-   - **Answer**: React Native is a framework for building mobile applications using JavaScript and React. React Native is a JavaScript framework for building cross-platform apps. Unlike React (for web), React Native uses native components (e.g., `<View>` instead of `<div>`).
+- **Answer**: React Native is a framework for building mobile applications using JavaScript and React. React Native is a JavaScript framework for building cross-platform apps. Unlike React (for web), React Native uses native components (e.g., `<View>` instead of `<div>`).
 
-   - **Example**: A `LoginScreen` component in React Native uses `<TextInput>` instead of `<input>` for text fields.
+- **Example**: A `LoginScreen` component in React Native uses `<TextInput>` instead of `<input>` for text fields.
 
-2. **What are the core components of React Native?**
+### 2. What are the core components of React Native?
 
 **[Core Components and APIs ⚠️](https://reactnative.dev/docs/components-and-apis)**
 
@@ -101,7 +101,7 @@
   </View>
   ```
 
-3. **What is `StyleSheet.create()`?**
+### 3. What is `StyleSheet.create()`?
 
 - `StyleSheet.create()` is a method in React Native that helps define styles in a structured and optimized way. It creates a stylesheet object whose values are immutable and cached, improving performance.
 
@@ -130,17 +130,15 @@ export default function App() {
 }
 ```
 
-.
-
-4. **Explain the concept of JSX in React Native.**
+### 4. Explain the concept of JSX in React Native.
 
 - JSX is a **syntax extension** in React Native that allows embedding HTML-like elements within JavaScript code.
 
-5. **What is the significance of the 'render' method in React Native components?**
+### 5. What is the significance of the 'render' method in React Native components?
 
 - The 'render' method in a React Native component is responsible for returning the JSX representation of the component's UI. It defines what the component should render on the screen based on its current state and props. React Native automatically updates the UI when the state or props change, re-invoking the 'render' method to reflect those changes visually.
 
-6. **How would you style a React Native component?**
+### 6. How would you style a React Native component?
 
 - React Native components can be styled using the `StyleSheet`, which allows you to define styles in a JavaScript object, similar to CSS but with camelCase property names.
 
@@ -171,48 +169,48 @@ export default function MyComponent() {
 }
 ```
 
-7. **What is the use of `StyleSheet.create()`?**
+### 7. What is the use of `StyleSheet.create()`?
 
-   - **Answer**: It optimizes performance by creating a stylesheet object with immutable styles.
-   - **Example**:
+- **Answer**: It optimizes performance by creating a stylesheet object with immutable styles.
+- **Example**:
 
-     ```jsx
-     const styles = StyleSheet.create({
-       container: { padding: 10 },
-     });
-     ```
-
-8. **What is the difference between `View`, `ScrollView`, and `FlatList`?**
-
-   - **Answer**:
-
-     - `View`: Basic container.
-     - `ScrollView`: Scrollable container (good for small lists).
-     - `FlatList`: Optimized for rendering large lists.
-
-   - **Example**: Use `FlatList` for chat messages to handle performance.
-
-9. **How does the React Native bridge work?**
-
-   - **Answer**: React Native uses a bridge to communicate between JS and native code (Java/Kotlin or Swift/Obj-C). Messages are serialized and sent over the bridge asynchronously.
-   - **Example**: Calling a native camera module from JavaScript.
-
-- The React Native framework provides a set of JavaScript bindings to native iOS and Android APIs. Using these bindings, we're able to control the user interface and access device hardware, like the camera.
-
-  **Example: Calling a native camera module from JavaScript**
-
-  ```js
-  import { NativeModules } from "react-native";
-
-  const { CameraModule } = NativeModules;
-
-  // Call a native method to open the camera
-  CameraModule.openCamera((result) => {
-    console.log("Camera result:", result);
+  ```jsx
+  const styles = StyleSheet.create({
+    container: { padding: 10 },
   });
   ```
 
-10. **How do you handle platform-specific code?**
+### 8. What is the difference between `View`, `ScrollView`, and `FlatList`?
+
+- **Answer**:
+
+  - `View`: Basic container.
+  - `ScrollView`: Scrollable container (good for small lists).
+  - `FlatList`: Optimized for rendering large lists.
+
+- **Example**: Use `FlatList` for chat messages to handle performance.
+
+### 9. How does the React Native bridge work?
+
+- **Answer**: React Native uses a bridge to communicate between JS and native code (Java/Kotlin or Swift/Obj-C). Messages are serialized and sent over the bridge asynchronously.
+- **Example**: Calling a native camera module from JavaScript.
+
+The React Native framework provides a set of JavaScript bindings to native iOS and Android APIs. Using these bindings, we're able to control the user interface and access device hardware, like the camera.
+
+**Example: Calling a native camera module from JavaScript**
+
+```js
+import { NativeModules } from "react-native";
+
+const { CameraModule } = NativeModules;
+
+// Call a native method to open the camera
+CameraModule.openCamera((result) => {
+  console.log("Camera result:", result);
+});
+```
+
+### 10. How do you handle platform-specific code?
 
 - **Answer**: Use `Platform.OS`, file extensions (`.ios.js`, `.android.js`), or conditional logic.
 - **Example**:
@@ -221,34 +219,34 @@ export default function MyComponent() {
   Platform.OS === "ios" ? doIOSFunction() : doAndroidFunction();
   ```
 
-11. **Define Prop?**
+### 11. Define Prop
 
-    - 'Props' (short for properties) are a way to pass data from a parent component to a child component in React Native. They allow components to be dynamic and reusable by providing different data and behavior based on where they are used. Props are read-only and help maintain a unidirectional data flow.
+- 'Props' (short for properties) are a way to pass data from a parent component to a child component in React Native. They allow components to be dynamic and reusable by providing different data and behavior based on where they are used. Props are read-only and help maintain a unidirectional data flow.
 
-    ```js
-    - Prop Types
-    - Children Props
-    - Default Props
-    ```
+```js
+- Prop Types
+- Children Props
+- Default Props
+```
 
-12. **What is State?**
+### 12. What is State?
 
-    - State is a built-in React object that is used to contain data or information about the component.
+- State is a built-in React object that is used to contain data or information about the component.
 
-13. **Use State is synchronous or asynchronous**
+### 13. Is useState synchronous or asynchronous?
 
-    - Asynchronous
+- Asynchronous
 
-    ```js
-    const [count, setCount] = useState(0);
+```js
+const [count, setCount] = useState(0);
 
-    setCount(count + 20);
-    setCount((count) => count + 20);
+setCount(count + 20);
+setCount((count) => count + 20);
 
-    console.log(count);
-    ```
+console.log(count);
+```
 
-14. **useState setState types**
+### 14. What are the types of setState in useState?
 
 ```js
 const [count, setCount] = useState(0);
@@ -258,7 +256,7 @@ const [count, setCount] = useState(0);
   - constant
   - function
 
-15. **Difference between `useState`, `useEffect`, and `useRef`?**
+### 15. What is the difference between `useState`, `useEffect`, and `useRef`?
 
 - `useState`: Stores local component state.
 - `useEffect`: Runs side effects.
@@ -271,40 +269,33 @@ const [count, setCount] = useState(0);
   const inputRef = useRef(null);
   ```
 
-16. **Muteable & ImMuteable**
+### 16. What is mutable and immutable?
 
-- **Muteable:** Mutable objects are those whose state can be changed after creation.
+- **Mutable:** Mutable objects are those whose state can be changed after creation.
+- **Immutable:** Immutable objects are those whose state cannot be changed after creation.
 
-- **ImMuteable:** Immutable objects are those whose state cannot be changed after creation.
-
-17. **Hooks? (One liner Answer)**
+### 17. What are Hooks? (One liner answer)
 
 - Hooks are functions that allow you to use React state and lifecycle features in functional components. They enable you to reuse stateful logic without changing your component hierarchy.
 
 - They provide a more concise and flexible way to manage complexity compared to traditional lifecycle methods in class components.
 
-18. **Pure Components**
+### 18. What are Pure Components?
 
-- Pure components are also stateless components. Where when you pass same props it will return same output/results. React have **`React.PureComponent`**.
-- This actually increase performance of app.
+- Pure components are also stateless components. When you pass the same props, they will return the same output/results. React has **`React.PureComponent`**.
+- This actually increases performance of the app.
 
-19. **Higher Order Component(HOC)**
+### 19. What is a Higher Order Component (HOC)?
 
-- Higher order components are actually function. Where we pass a component as input and it return another componet as output.
+- Higher order components are actually functions. You pass a component as input and it returns another component as output.
 
-20. **Controlled & Uncontrolled Components**
+### 20. What are Controlled & Uncontrolled Components?
 
 [Detail Video]()
 
 - **Controlled components** are form elements whose values are controlled by React using state. Like input fields.
 
-- **Uncontrolled component** is like traditional HTML
-  form inputs that you will not be able to handle the
-  value by yourself but the DOM will take care of
-  handling the value of the input and save it then you
-  can get this value using **`React Ref`** and for
-  example, print it inside alert when submitting or
-  play with this value as you want.
+- **Uncontrolled component** is like traditional HTML form inputs that you will not be able to handle the value by yourself but the DOM will take care of handling the value of the input and save it then you can get this value using **`React Ref`** and for example, print it inside alert when submitting or play with this value as you want.
 
 ```javascript
 import React, { useRef } from "react";
@@ -323,72 +314,72 @@ export default function App() {
 }
 ```
 
-21. **Statefull components and Stateless components**
+### 21. What are Stateful components and Stateless components?
 
-- **Statefull Component**: A component that is managing state and have capacity to rerender.
+- **Stateful Component**: A component that is managing state and has capacity to rerender.
 
-- **Stateless Component**: Stateless components, by contrast, have no state. They are handle by props.
+- **Stateless Component**: Stateless components, by contrast, have no state. They are handled by props.
 
 - [Detail Video](https://www.youtube.com/shorts/AWmm1gHBJic?feature=share)
 
-22. **Prop Drilling & Prop Uplifting**
+### 22. What is Prop Drilling & Prop Uplifting?
 
-23. **What is 'state' in React Native and how is it different from 'props'?**
+### 23. What is 'state' in React Native and how is it different from 'props'?
 
-    | Aspect         | Props                                                               | State                                                             |
-    | -------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------- |
-    | Definition     | Data passed from parent to child component                          | Data managed internally within the component                      |
-    | Mutability     | Immutable (read-only)                                               | Mutable (can be changed using `setState`)                         |
-    | Usage          | Used to configure or customize child components                     | Used for dynamic data that changes over time within the component |
-    | Update Trigger | Changing props does **not** trigger re-render in the child directly | Updating state triggers a re-render of the component              |
-    | Control        | Controlled by parent component                                      | Controlled by the component itself                                |
+| Aspect         | Props                                                               | State                                                             |
+| -------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Definition     | Data passed from parent to child component                          | Data managed internally within the component                      |
+| Mutability     | Immutable (read-only)                                               | Mutable (can be changed using `setState`)                         |
+| Usage          | Used to configure or customize child components                     | Used for dynamic data that changes over time within the component |
+| Update Trigger | Changing props does **not** trigger re-render in the child directly | Updating state triggers a re-render of the component              |
+| Control        | Controlled by parent component                                      | Controlled by the component itself                                |
 
-24. **How do you handle user input using React Native?**
+### 24. How do you handle user input using React Native?
 
-    - User input in React Native is managed using event handlers such as `onChangeText` for text fields and `onPress` for buttons. State is typically used to store and update the input value.
+- User input in React Native is managed using event handlers such as `onChangeText` for text fields and `onPress` for buttons. State is typically used to store and update the input value.
 
-    **Example:**
+**Example:**
 
-    ```jsx
-    import React, { useState } from "react";
-    import { View, TextInput, Button, Text, Alert } from "react-native";
+```jsx
+import React, { useState } from "react";
+import { View, TextInput, Button, Text, Alert } from "react-native";
 
-    export default function InputExample() {
-      const [name, setName] = useState("");
+export default function InputExample() {
+  const [name, setName] = useState("");
 
-      const handlePress = () => {
-        Alert.alert("Hello", `Hello, ${name}!`);
-      };
+  const handlePress = () => {
+    Alert.alert("Hello", `Hello, ${name}!`);
+  };
 
-      return (
-        <View style={{ padding: 16 }}>
-          <Text>Enter your name:</Text>
-          <TextInput
-            value={name}
-            onChangeText={setName}
-            placeholder="Type here"
-            style={{
-              borderWidth: 1,
-              borderColor: "#ccc",
-              padding: 8,
-              marginVertical: 8,
-            }}
-          />
-          <Button title="Say Hello" onPress={handlePress} />
-        </View>
-      );
-    }
-    ```
+  return (
+    <View style={{ padding: 16 }}>
+      <Text>Enter your name:</Text>
+      <TextInput
+        value={name}
+        onChangeText={setName}
+        placeholder="Type here"
+        style={{
+          borderWidth: 1,
+          borderColor: "#ccc",
+          padding: 8,
+          marginVertical: 8,
+        }}
+      />
+      <Button title="Say Hello" onPress={handlePress} />
+    </View>
+  );
+}
+```
 
-25. **Lifecycle Method**
+### 25. What is a Lifecycle Method?
 
 - Every component in React goes through a lifecycle of events. I like to think of them as going through a cycle of birth, growth, and death.
 
-**Mounting** – Birth of your component
-**Update** – Growth of your component
+**Mounting** – Birth of your component  
+**Update** – Growth of your component  
 **Unmount** – Death of your component
 
-26. **How do you handle navigation between screens in React Native?**
+### 26. How do you handle navigation between screens in React Native?
 
 Navigation between screens in React Native is typically handled using libraries such as React Navigation. You set up a navigator (e.g., Stack, Tab, or Drawer Navigator) and register your screens as components. To move between screens, you use navigation methods like `navigate`, `push`, and `goBack` provided by the navigation prop.
 
@@ -402,7 +393,7 @@ navigation.navigate("Profile");
 navigation.goBack();
 ```
 
-27. **Explain the concept of 'flexbox' and its role in React Native layout.**
+### 27. What is the concept of 'flexbox' and its role in React Native layout?
 
 - **Flexbox** is a layout model that helps arrange and align components within a container, making it easier to create responsive layouts. In React Native, flexbox is the default layout system, allowing you to control the direction, alignment, and distribution of space among items in a container.
 
@@ -441,19 +432,17 @@ const styles = StyleSheet.create({
 
 - In this example, the three boxes are arranged in a row, spaced evenly, and centered vertically using flexbox properties.
 
-28. **What are 'keys' in React Native and why are they important in lists?**
+### 28. What are 'keys' in React Native and why are they important in lists?
 
-- 'Keys' are special attributes used by React Native to **`uniquely identify elements`** in a list. They help React Native optimize re-rendering when the list changes, improving performance and **`preventing rendering glitches`**.
+- 'Keys' are special attributes used by React Native to **uniquely identify elements** in a list. They help React Native optimize re-rendering when the list changes, improving performance and **preventing rendering glitches**.
 
-29. **How can you make a network request in React Native?**
+### 29. How can you make a network request in React Native?
 
 - In React Native, you can make network requests using the built-in **`fetch`** API or libraries like **`Axios`**. These requests are asynchronous and can be handled with promises or **`async/await`**.
 
-30. **Describe the purpose of 'AsyncStorage' in React Native.**
+### 30. What is the purpose of 'AsyncStorage' in React Native?
 
 - 'AsyncStorage' is an API in React Native for **asynchronous, unencrypted, and persistent storage** of small amounts of data. It's often used to store settings, preferences, or authentication tokens locally on the user's device.
-
-30.
 
 ---
 
