@@ -229,6 +229,29 @@ CameraModule.openCamera((result) => {
 - Default Props
 ```
 
+### 11.1. React Reconciliation vs React Fiber — To-the-point Difference:
+
+- **React Reconciliation** is the process by which React updates the DOM to match the virtual DOM. It decides what has changed and applies minimal DOM operations.
+
+  - Reconciliation is **Stack** based render. ❌Coudn't pause once rendering started. When React is working to updates UI, it had to ⏳finish all at once.
+    ![Reconciliation](image.png)
+
+- **React Fiber (Interruptible)** is the new reconciliation engine(new brain) introduced in React 16. It is the architecture behind how React schedules and prioritizes updates.
+  ![fiber](image-1.png)
+  ![benefits](image-2.png)
+
+### Key Differences:
+
+| Feature                     | React Reconciliation (Pre-Fiber) | React Fiber                                                          |
+| --------------------------- | -------------------------------- | -------------------------------------------------------------------- |
+| **Update Model**            | Recursive and synchronous        | Incremental and asynchronous                                         |
+| **Interruptible Rendering** | No                               | Yes — can pause, resume, abort                                       |
+| **Prioritization**          | No built-in prioritization       | Supports prioritizing updates (e.g., animations vs background tasks) |
+| **Architecture**            | Stack-based                      | Fiber tree — reimplementation of the stack using linked list nodes   |
+| **Error Handling**          | Poor support                     | Introduced error boundaries                                          |
+
+In short: **Reconciliation is the process; Fiber is the architecture** that makes that process more efficient and flexible.
+
 ### 12. What is State?
 
 - State is a built-in React object that is used to contain data or information about the component.
@@ -261,6 +284,7 @@ const [count, setCount] = useState(0);
 - `useState`: Stores local component state.
 - `useEffect`: Runs side effects.
 - `useRef`: Holds mutable values.
+
 - **Example**:
 
   ```jsx
@@ -268,6 +292,17 @@ const [count, setCount] = useState(0);
   useEffect(() => console.log(count), [count]);
   const inputRef = useRef(null);
   ```
+
+### 15.1 What is the difference between `useState` and `useRef`?
+
+| Feature            | `useState`                               | `useRef`                                     |
+| ------------------ | ---------------------------------------- | -------------------------------------------- |
+| Purpose            | Manages **reactive state**               | Holds a **mutable reference** (non-reactive) |
+| Triggers Re-render | ✅ Yes — updates cause re-render         | ❌ No — changes do **not** trigger re-render |
+| Common Use Cases   | UI state (e.g. input value, count)       | Storing DOM refs, timers, previous values    |
+| Persistence        | Value persists between renders           | Also persists between renders                |
+| Usage Example      | `const [count, setCount] = useState(0);` | `const inputRef = useRef(null);`             |
+| Real Use Case      | Tracking user input and updating UI      | Focusing input field or storing timeout ID   |
 
 ### 16. What is mutable and immutable?
 
@@ -370,6 +405,53 @@ export default function InputExample() {
   );
 }
 ```
+
+### 24.1. How does React determine when to re-render a component ?
+
+- React re-render when props or states change, with shallow comparison.
+
+How to optimize the unnecessary renders?
+![optimizations](image-3.png)
+
+### Explain React's batching behaviour and what changed in React 18?
+
+**Definition:**  
+Batching in React refers to the process where multiple state updates are grouped together and applied in a single render cycle, improving performance by reducing unnecessary re-renders.
+
+**What changed in React 18?**  
+Before React 18, batching only occurred inside React event handlers. In React 18, batching is extended to more scenarios, such as timeouts, native event handlers, and asynchronous operations (like promises), leading to more efficient updates.
+
+**Example:**
+
+```jsx
+import React, { useState } from "react";
+
+export default function BatchingExample() {
+  const [count, setCount] = useState(0);
+  const [flag, setFlag] = useState(false);
+
+  const handleClick = () => {
+    setTimeout(() => {
+      setCount((c) => c + 1);
+      setFlag((f) => !f);
+      // In React 18+, both updates are batched and cause a single re-render
+    }, 1000);
+  };
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <p>Flag: {flag.toString()}</p>
+      <button onClick={handleClick}>Update</button>
+    </div>
+  );
+}
+```
+
+_In React 18+, both `setCount` and `setFlag` inside the `setTimeout` are batched, resulting in a single re-render. In previous versions, each would trigger a separate render._
+
+![batching](image-4.png)
+![batching2](image-5.png)
 
 ### 25. What is a Lifecycle Method?
 
@@ -531,12 +613,44 @@ const styles = StyleSheet.create({
 ### 33. How do you optimize performance in a React Native application?
 
 - Optimize performance in React Native by:
+
   1. Using `React.PureComponent` or `React.memo` to prevent unnecessary re-renders.
   2. Memoizing functions and values with `useCallback` and `useMemo`.
   3. Optimizing render methods and minimizing the number of components rendered.
   4. Implementing code splitting and lazy loading where possible.
   5. Using FlatList or SectionList for large lists instead of ScrollView.
   6. Profiling with tools like `React DevTools` and `Flipper` to identify bottlenecks.
+
+  ### 33.1 Differences b/w useMemo() and useCallback() in React. When to use them?
+
+  - **useMemo** stores/caches the result of a computation (the return value of a function).
+
+    - **When to use it:** When you want to memoize expensive calculations or derived data, such as filtering or sorting a large list, so the computation only runs when dependencies change.
+
+    ```js
+    const filteredList = useMemo(() => {
+      return items.filter((item) => item.active);
+    }, [items]);
+    ```
+
+  - **useCallback** stores/caches the function itself, returning the same function instance unless dependencies change.
+
+    - **When to use it:** When you want to prevent unnecessary re-creations of functions, especially when passing callbacks to child components that rely on reference equality (e.g., in dependency arrays or React.memo).
+
+    ```js
+    const handleClick = useCallback(() => {
+      setCount((c) => c + 1);
+    }, []);
+    ```
+
+  **Summary Table:**
+
+| Hook            | Purpose                                | Returns        | Used For                       |
+| --------------- | -------------------------------------- | -------------- | ------------------------------ |
+| `useMemo()`     | Caches the **result** of a computation | A **value**    | Expensive calculations         |
+| `useCallback()` | Caches the **function itself**         | A **function** | Prevents re-creating functions |
+
+---
 
 ### 34. What are 'Touchable' components in React Native and how do they work?
 
@@ -773,6 +887,169 @@ export default function MySectionList() {
 }
 ```
 
+Great question! Let's break down how `React.Suspense` works and go beyond the common lazy loading use case.
+
+---
+
+### ✅ **46.1 How does `React.Suspense` work, and what are some real use cases beyond lazy loading?**
+
+---
+
+### 🔹 **What is `Suspense`?**
+
+`React.Suspense` is a component that lets you **“wait” for something before rendering**. It shows a fallback UI (like a loading spinner) while the content is not yet ready.
+
+---
+
+### ✅ **Basic Syntax (for lazy loading components):**
+
+```jsx
+const LazyComponent = React.lazy(() => import("./MyComponent"));
+
+<Suspense fallback={<Text>Loading...</Text>}>
+  <LazyComponent />
+</Suspense>;
+```
+
+---
+
+### 🔹 **How It Works Internally**
+
+- When a component throws a **promise** (e.g., during data fetching or dynamic import), React pauses rendering and shows the `fallback`.
+- Once the promise resolves, rendering continues.
+
+---
+
+### ✅ **Use Cases Beyond Lazy Loading**
+
+#### **1. Data Fetching with Suspense (e.g., with Relay or React Query experimental)**
+
+React 18 supports **concurrent rendering** and **data-fetching Suspense**, where data can also suspend the component.
+
+Example using a custom data loader:
+
+```js
+const resource = fetchData(); // this returns an object with a `.read()` method
+
+function Profile() {
+  const user = resource.user.read(); // this suspends until user data is ready
+  return <Text>{user.name}</Text>;
+}
+```
+
+Then wrap with Suspense:
+
+```jsx
+<Suspense fallback={<Text>Loading profile...</Text>}>
+  <Profile />
+</Suspense>
+```
+
+---
+
+#### **2. Image Loading Suspense**
+
+You can wrap `<img>`-like logic to suspend until the image is loaded:
+
+```js
+const imgResource = loadImage("https://example.com/pic.jpg");
+
+function ImageComponent() {
+  imgResource.read(); // suspends until image is loaded
+  return <Image source={{ uri: "https://example.com/pic.jpg" }} />;
+}
+```
+
+---
+
+#### **3. Skeleton Screens for Complex UI**
+
+Use `Suspense` to show partial UIs while some parts (like a chart, list, or graph) are loading asynchronously.
+
+```jsx
+<Suspense fallback={<SkeletonChart />}>
+  <DashboardChart />
+</Suspense>
+```
+
+---
+
+### ✅ Summary: When to Use Suspense
+
+| Use Case               | Example                          |
+| ---------------------- | -------------------------------- |
+| Lazy component loading | `React.lazy()`                   |
+| Data fetching          | React Query, Relay, custom cache |
+| Image / asset loading  | Custom suspending resource       |
+| Concurrent UI parts    | Show skeletons for slower parts  |
+
+---
+
+Certainly! Here's the **completed and optimized answer** for your interview prep:
+
+---
+
+### ✅ **46.2 How do you optimize large lists in React?**
+
+Suppose you have **100,000+ items** to render — rendering them all at once would crash the app or significantly hurt performance.
+
+---
+
+### 🔹 **Solution: Virtualization**
+
+**Virtualization** is a technique where only the **visible items in the viewport** are rendered, and the rest are skipped until needed. This improves **memory usage** and **scroll performance**.
+
+---
+
+### ✅ **React Native: Use `FlatList`**
+
+`FlatList` in React Native is **already virtualized** by default.
+
+```jsx
+<FlatList
+  data={bigDataArray}
+  renderItem={({ item }) => <Text>{item.title}</Text>}
+  keyExtractor={(item) => item.id.toString()}
+  initialNumToRender={10}
+  maxToRenderPerBatch={20}
+  windowSize={5}
+/>
+```
+
+---
+
+### 🔧 **Important Props to Optimize:**
+
+| Prop                    | Description                                            |
+| ----------------------- | ------------------------------------------------------ |
+| `initialNumToRender`    | How many items to render initially                     |
+| `maxToRenderPerBatch`   | Max items rendered in each batch                       |
+| `windowSize`            | Number of viewports (screens) worth of items to render |
+| `getItemLayout`         | Improves scroll performance by avoiding measurement    |
+| `removeClippedSubviews` | Unmounts offscreen items (default: true)               |
+
+---
+
+### ✅ **Web: Use `react-window` or `react-virtualized`**
+
+Example with `react-window`:
+
+```jsx
+import { FixedSizeList as List } from "react-window";
+
+<List height={500} itemCount={100000} itemSize={35} width={300}>
+  {({ index, style }) => <div style={style}>Row {index}</div>}
+</List>;
+```
+
+---
+
+### ✅ **Real-Time Use Case**
+
+> In a React Native finance app, rendering all transaction history for a power user (e.g. 100,000 records) would be heavy. Using `FlatList` with `getItemLayout` and pagination ensures smooth scrolling without freezing the app.
+
+---
+
 ### 47. Different Hooks name
 
 React Hooks
@@ -837,6 +1114,151 @@ Performance optimization techniques explain.
 - Interceptors allow you to modify the request or response before it is sent or received by the server.
 
 - Interceptors are useful because they allow developers to add custom functionality to requests and responses without modifying the actual code that makes the request.
+
+### 51. How does React Hanlde Hydration in SSR, what problems can arise?
+
+Hydration is the process where React attaches event listeners and reuses the static HTML that was sent from the server — instead of rebuilding the entire DOM.
+
+> 💡 SSR (Server-Side Rendering) sends a pre-rendered HTML to the browser, and React hydrates it by attaching interactivity.
+
+- [Video Link](https://youtu.be/R-BKadZWYnQ?list=TLPQMDYwNzIwMjWo1LQdc9C71w)
+
+Benefits of Hydration:
+
+- Improved User Experience:
+- Better SEO:
+- Seamless Transitions:
+
+**✅ How Hydration Works**
+
+| Step                                                                       | Description |
+| -------------------------------------------------------------------------- | ----------- |
+| 1. Server renders the page using `ReactDOMServer.renderToString()`         |             |
+| 2. HTML is sent to the browser (fast first paint)                          |             |
+| 3. Browser loads React JS bundle                                           |             |
+| 4. React runs `ReactDOM.hydrate()` to bind events and enable interactivity |             |
+
+**Hydration Code**
+
+```js
+// Server-side (e.g. Next.js or Express)
+const html = ReactDOMServer.renderToString(<App />);
+
+// Client-side
+ReactDOM.hydrate(<App />, document.getElementById("root"));
+```
+
+### Client-Side Rendering (CSR) || Server-Side Rendering (SSR) || Hydration in React
+
+---
+
+## ✅ **1. Client-Side Rendering (CSR)**
+
+### 🔹 What is CSR?
+
+- CSR means the **entire HTML is generated in the browser using JavaScript**.
+- On initial load, the browser receives a mostly empty HTML file and loads React to render everything.
+- Good for **highly interactive apps** but **slower time-to-first-paint**.
+
+---
+
+### ✅ Example (React CSR via CRA or Vite)
+
+```html
+<!-- index.html -->
+<body>
+  <div id="root"></div>
+  <script src="bundle.js"></script>
+</body>
+```
+
+```jsx
+// index.js
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+```
+
+🟢 React renders the UI **fully in the browser** after the JavaScript loads.
+
+---
+
+## ✅ **2. Server-Side Rendering (SSR)**
+
+### 🔹 What is SSR?
+
+- SSR means the HTML is **generated on the server** using `ReactDOMServer`.
+- The browser receives a **fully-rendered HTML page**, improving first paint speed.
+- Useful for SEO and performance.
+
+---
+
+### ✅ Example (Basic Express + React SSR)
+
+```js
+// server.js
+import express from "express";
+import ReactDOMServer from "react-dom/server";
+import App from "./App";
+
+const app = express();
+
+app.get("*", (req, res) => {
+  const html = ReactDOMServer.renderToString(<App />);
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+      <head><title>SSR</title></head>
+      <body>
+        <div id="root">${html}</div>
+        <script src="/bundle.js"></script>
+      </body>
+    </html>
+  `);
+});
+
+app.listen(3000);
+```
+
+🟢 User receives **rendered HTML**; React still needs to hydrate for interactivity.
+
+---
+
+## ✅ **3. Hydration in React**
+
+### 🔹 What is Hydration?
+
+- After SSR sends HTML, **hydration attaches React’s event handlers** to the static markup.
+- This is done using `ReactDOM.hydrate()` instead of `render()`.
+
+---
+
+### ✅ Example
+
+```jsx
+// client.js
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+
+ReactDOM.hydrate(<App />, document.getElementById("root"));
+```
+
+🟢 This tells React: “The DOM already exists, just connect the events and logic to it.”
+
+---
+
+## 🔄 **Comparison Summary**
+
+| Feature     | Client-Side Rendering     | Server-Side Rendering   | Hydration                      |
+| ----------- | ------------------------- | ----------------------- | ------------------------------ |
+| Render Time | In browser after JS loads | HTML rendered on server | Binds React to server HTML     |
+| First Paint | Slower                    | Faster                  | Same as SSR + attaches events  |
+| SEO         | Poor                      | Great                   | Great (SSR-powered)            |
+| Use Case    | SPAs, dashboards          | Blogs, landing pages    | Required for SSR interactivity |
 
 ---
 
@@ -1083,5 +1505,3 @@ Performance optimization techniques explain.
     - Use `PermissionsAndroid` or `react-native-permissions`.
 
 ---
-
-Let me know if you want these exported as a PDF, flashcards, or want a mock interview session based on them.

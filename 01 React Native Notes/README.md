@@ -254,6 +254,22 @@ This is your dev-time BFF. It reloads only the changed files while preserving th
 
 ---
 
+## React Native Full Architecture:
+
+The current React Native architecture is based on 3 major pillars:
+
+1. The JavaScript Thread
+2. The Native Thread
+3. The Shadow Thread
+
+![react-native-architecture](image-1.png)
+
+## React Native New Architecture:
+
+With the introduction of React Native re-architecture, the **Bridge will be gradually eliminated** and substituted with a new component called the **JavaScript Interface (JSI)**. This element will also serve as an enabler for a new Fabric and TurboModules.
+
+![new-react-native-architecture](image-2.png)
+
 ## **React Native Fundamentals / Core Components**
 
 [Core Components and APIs ⚠️](https://reactnative.dev/docs/components-and-apis)
